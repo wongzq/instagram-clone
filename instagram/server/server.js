@@ -1,16 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const user = require('./models/user')
 
 require('dotenv').config()
+require('./models/user')
+
+const authRouter = require('./routes/auth')
 
 const app = express()
 const PORT = 5000
 const URI = process.env.MONGODB_URI
-
-// routes 
-app.use(express.json)
-app.use(require('./routes/auth'))
 
 // connect to MongoDB
 mongoose.connect(URI, {
@@ -28,6 +26,10 @@ mongoose.connection.on('error', (err) => {
   console.log("MongoDB connection failure")
   console.log(err, '\n')
 })
+
+// routes
+app.use(express.json())
+app.use(authRouter)
 
 // listen
 app.listen(PORT, () => {
