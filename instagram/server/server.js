@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const user = require('./models/user')
 
 require('dotenv').config()
 
@@ -7,30 +8,26 @@ const app = express()
 const PORT = 5000
 const URI = process.env.MONGODB_URI
 
+// routes 
+app.use(express.json)
+app.use(require('./routes/auth'))
+
 // connect to MongoDB
 mongoose.connect(URI, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
+}).catch(err => console.log(err))
+mongoose.connection.once('open', () => {
+  console.log('MongoDB connection open')
 })
 mongoose.connection.on('connected', () => {
-  console.log("MongoDB database connected")
+  console.log("MongoDB connection success")
 })
 mongoose.connection.on('error', (err) => {
-  console.log("MongoDB database connection error")
-  console.log(err)
+  console.log("MongoDB connection failure")
+  console.log(err, '\n')
 })
-
-// // router
-// app.get('/', (req, res) => {
-//   console.log("home")
-//   res.send("Hello world!")
-// })
-
-// app.get('/about', customMiddleWare, (req, res) => {
-//   console.log("about")
-//   res.send("about page")
-// })
 
 // listen
 app.listen(PORT, () => {
