@@ -1,10 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
-require('dotenv').config()
 require('./models/user')
+require('./models/post')
+require('dotenv').config()
 
 const authRouter = require('./routes/auth')
+const postRouter = require('./routes/post')
 
 const app = express()
 const PORT = 5000
@@ -30,6 +32,7 @@ mongoose.connection.on('error', (err) => {
 // routes
 app.use(express.json())
 app.use(authRouter)
+app.use(postRouter)
 
 // listen
 app.listen(PORT, () => {
