@@ -12,6 +12,14 @@ router.get('/getPosts', (req, res) => {
     .catch(err => console.log(err))
 })
 
+router.get('/myPosts', requireLogin, (req, res) => {
+  Post.find({ postedBy: req.user.id })
+    .populate("postedBy", "_id name")
+    .then(posts => res.json({ posts }))
+    .catch(err => console.log(err))
+
+})
+
 router.post('/createPost', requireLogin, (req, res) => {
   const { title, body } = req.body
 
