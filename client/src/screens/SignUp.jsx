@@ -5,8 +5,8 @@ import M from "materialize-css";
 const SignUp = () => {
   const history = useHistory();
   const [name, setName] = React.useState("");
-  const [password, setPassword] = React.useState("");
   const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const PostData = () => {
     // if invalid email format
     if (
@@ -21,7 +21,7 @@ const SignUp = () => {
     fetch("/signup", {
       method: "post",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, password, email }),
+      body: JSON.stringify({ name, email, password }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -55,7 +55,7 @@ const SignUp = () => {
           onChange={(e) => setEmail(e.target.value)}
         ></input>
         <input
-          type="text"
+          type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

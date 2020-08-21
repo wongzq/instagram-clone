@@ -44,7 +44,7 @@ router.post('/signup', (req, res) => {
             name: name,
           })
           user.save()
-            .then((user) => res.json({ message: `user ${email} created successfully` }))
+            .then((user) => res.json({ message: "signed up successfully" }))
             .catch((err) => console.log(err))
         })
         .catch((err) => console.log(err))
@@ -75,7 +75,8 @@ router.post('/signin', (req, res) => {
 
             // generate jwt token
             const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET)
-            res.json({ token })
+            const { id: _id, name, email } = savedUser
+            res.json({ token, user: { _id, name, email } })
           } else {
             return res.status(422).json({ error: "invalid email or password" })
           }
