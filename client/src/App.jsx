@@ -35,7 +35,7 @@ function App() {
       </Route>
 
       {/* Create Post */}
-      <Route path="/createPost">
+      <Route path="/createpost">
         <CreatePost></CreatePost>
       </Route>
     </BrowserRouter>
