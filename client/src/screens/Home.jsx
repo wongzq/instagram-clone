@@ -1,25 +1,38 @@
 import React from "react";
 
 const Home = () => {
+  const [posts, setPosts] = React.useState([]);
+  React.useEffect(() => {
+    fetch("/getPosts", {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data.posts);
+      });
+  }, []);
+
   return (
     <div className="home">
-      <div className="card home-card">
-        <h5>alexis</h5>
-        <div className="card-image">
-          <img
-            alt=""
-            src="https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-          ></img>
+      {posts.map((post) => (
+        <div className="card home-card" key={post._id}>
+          <h5>{post.postedBy.name}</h5>
+          <div className="card-image">
+            <img alt="" src={post.imgUrl}></img>
+          </div>
+          <div className="card-content">
+            <h6>{post.title}</h6>
+            <i className="material-icons" style={{ color: "#f00" }}>
+              favorite
+            </i>
+            <p>{post.body}</p>
+            <input type="text" placeholder="Add a comment"></input>
+          </div>
         </div>
-        <div className="card-content">
-          <h6>title</h6>
-          <i className="material-icons" style={{ color: "#f00" }}>
-            favorite
-          </i>
-          <p>This is a beautiful wallpaper</p>
-          <input type="text"></input>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };
