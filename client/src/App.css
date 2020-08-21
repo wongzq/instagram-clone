@@ -18,6 +18,12 @@ a {
   max-width: 400px;
 }
 
+.home-card {
+  margin: 20px auto;
+  max-width: 500px;
+  height: max-content;
+}
+
 .input-field input[type=text]:focus {
   border-bottom: 1px solid #42a5f5 !important;
   box-shadow: 0 1px 0 0 #42a5f5 !important;
