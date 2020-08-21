@@ -38,3 +38,13 @@ a {
 .gallery-item {
   width: 30%;
 }
+
+#toast-container {
+  width: max-content;
+  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

@@ -18,6 +18,7 @@ router.get('/protected', requireLogin, (req, res) => {
 })
 
 router.post('/signup', (req, res) => {
+  console.log(req.body)
   const { email, password, name } = req.body
 
   // if incomplete fields

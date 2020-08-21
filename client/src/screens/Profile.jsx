@@ -13,6 +13,7 @@ const Profile = () => {
       >
         <div>
           <img
+            alt=""
             style={{
               width: "160px",
               height: "160px",
@@ -38,14 +39,17 @@ const Profile = () => {
       </div>
       <div className="gallery">
         <img
+          alt=""
           className="gallery-item"
           src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Two_Adult_Guinea_Pigs_%28cropped%29.jpg"
         ></img>
         <img
+          alt=""
           className="gallery-item"
           src="https://media.4-paws.org/e/7/1/0/e710ae912cfcf6f0f8bedc9700696e546535ddf2/IMG_20190721_172032-2976x2060-1920x1329.jpg"
         ></img>
         <img
+          alt=""
           className="gallery-item"
           src="https://cdn.britannica.com/06/189306-050-8B236783/Guinea-pigs-cavies-body-eyes-limbs-head.jpg"
         ></img>

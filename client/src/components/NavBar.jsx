@@ -19,7 +19,7 @@ const NavBar = () => {
             <Link to="/profile">Profile</Link>
           </li>
           <li>
-            <Link to="/createPost">Create Post</Link>
+            <Link to="/createpost">Create Post</Link>
           </li>
         </ul>
       </div>
