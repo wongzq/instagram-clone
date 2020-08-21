@@ -1,26 +1,43 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../App";
 
 const NavBar = () => {
+  const { state } = React.useContext(UserContext);
+
+  const renderList = () => {
+    if (state) {
+      return [
+        <li>
+          <Link to="/profile">Profile</Link>
+        </li>,
+        <li>
+          <Link to="/createpost">Create Post</Link>
+        </li>,
+      ];
+    } else {
+      return [
+        <li>
+          <Link to="/signin">Sign in</Link>
+        </li>,
+        <li>
+          <Link to="/signup">Sign up</Link>
+        </li>,
+      ];
+    }
+  };
+
   return (
     <nav>
       <div className="nav-wrapper white">
-        <Link to="/" className="brand-logo left grand-hotel-font">
+        <Link
+          to={state ? "/" : "/signin"}
+          className="brand-logo left grand-hotel-font"
+        >
           Instagram
         </Link>
         <ul id="nav-mobile" className="right">
-          <li>
-            <Link to="/signin">Sign in</Link>
-          </li>
-          <li>
-            <Link to="/signup">Sign up</Link>
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <Link to="/createpost">Create Post</Link>
-          </li>
+          {renderList()}
         </ul>
       </div>
     </nav>

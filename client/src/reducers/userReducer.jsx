@@ -1,4 +1,4 @@
-const initialState = null;
+const initState = null;
 
 const reducer = (state, action) => {
   if (action.type === "USER") {
@@ -7,4 +7,4 @@ const reducer = (state, action) => {
   return state;
 };
 
-export { reducer, initialState };
+export default { reducer, initState };
