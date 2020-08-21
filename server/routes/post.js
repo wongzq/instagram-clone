@@ -17,7 +17,6 @@ router.get('/myPosts', requireLogin, (req, res) => {
     .populate("postedBy", "_id name")
     .then(posts => res.json({ posts }))
     .catch(err => console.log(err))
-
 })
 
 router.post('/createPost', requireLogin, (req, res) => {

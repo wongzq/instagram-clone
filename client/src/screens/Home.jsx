@@ -1,7 +1,10 @@
 import React from "react";
+import { UserContext } from "../App";
 
 const Home = () => {
   const [posts, setPosts] = React.useState([]);
+  const { state, dispatch } = React.useContext(UserContext);
+
   React.useEffect(() => {
     fetch("/getPosts", {
       headers: {
@@ -14,6 +17,25 @@ const Home = () => {
       });
   }, []);
 
+  const toggleLikePost = (id, liked) => {
+    fetch(liked ? "/unlike" : "/like", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+      body: JSON.stringify({ postId: id }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const newPosts = posts.map((post) => {
+          return post._id === data._id ? data : post;
+        });
+        setPosts(newPosts);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="home">
       {posts.map((post) => (
@@ -23,10 +45,20 @@ const Home = () => {
             <img alt="" src={post.imgUrl}></img>
           </div>
           <div className="card-content">
-            <h6>{post.title}</h6>
-            <i className="material-icons" style={{ color: "#f00" }}>
-              favorite
+            <i
+              className="material-icons"
+              style={{
+                color: post.likes.includes(state._id) ? "#f00" : "#000",
+              }}
+              onClick={() =>
+                toggleLikePost(post._id, post.likes.includes(state._id))
+              }
+            >
+              {post.likes.includes(state._id) ? "favorite" : "favorite_border"}
             </i>
+            <h6>{post.likes.length} likes</h6>
+
+            <h6>{post.title}</h6>
             <p>{post.body}</p>
             <input type="text" placeholder="Add a comment"></input>
           </div>
