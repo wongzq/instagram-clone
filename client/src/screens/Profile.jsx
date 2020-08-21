@@ -3,7 +3,7 @@ import { UserContext } from "../App";
 
 const Profile = () => {
   const [posts, setPosts] = React.useState([]);
-  const { state, dispatch } = React.useContext(UserContext);
+  const { state } = React.useContext(UserContext);
 
   React.useEffect(() => {
     fetch("/myPosts", {
