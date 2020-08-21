@@ -23,11 +23,9 @@ router.get('/myPosts', requireLogin, (req, res) => {
 router.post('/createPost', requireLogin, (req, res) => {
   const { title, body, imgUrl } = req.body
 
-  console.log(req.body)
-
   // if insufficient fields
   if (!title || !body || !imgUrl) {
-    return res.status(422).json({ error: "insufficient fields" })
+    return res.status(422).json({ error: "Tnsufficient fields" })
   }
 
   req.user.password = undefined

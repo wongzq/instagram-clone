@@ -18,19 +18,18 @@ router.get('/protected', requireLogin, (req, res) => {
 })
 
 router.post('/signup', (req, res) => {
-  console.log(req.body)
   const { email, password, name } = req.body
 
   // if incomplete fields
   if (!email || !password || !name) {
-    return res.status(422).json({ error: "some fields are incomplete" })
+    return res.status(422).json({ error: "Some fields are incomplete" })
   }
 
   User.findOne({ email: email })
     .then((existingUser) => {
       // if user exists
       if (existingUser) {
-        return res.status(422).json({ error: "this email is already registered" })
+        return res.status(422).json({ error: "This email is already registered" })
       }
 
       // hash password
@@ -44,7 +43,7 @@ router.post('/signup', (req, res) => {
             name: name,
           })
           user.save()
-            .then((user) => res.json({ message: "signed up successfully" }))
+            .then((user) => res.json({ message: "Signed up successfully" }))
             .catch((err) => console.log(err))
         })
         .catch((err) => console.log(err))
@@ -57,7 +56,7 @@ router.post('/signin', (req, res) => {
 
   // if incomplete fields
   if (!email || !password) {
-    return res.status(422).json({ error: "invalid email and password" })
+    return res.status(422).json({ error: "Invalid email and password" })
   }
 
   User.findOne({ email: email })
@@ -65,7 +64,7 @@ router.post('/signin', (req, res) => {
 
       // if user email not found
       if (!savedUser) {
-        return res.status(422).json({ error: "invalid email or password" })
+        return res.status(422).json({ error: "Invalid email or password" })
       }
 
       // check password
@@ -78,7 +77,7 @@ router.post('/signin', (req, res) => {
             const { id: _id, name, email } = savedUser
             res.json({ token, user: { _id, name, email } })
           } else {
-            return res.status(422).json({ error: "invalid email or password" })
+            return res.status(422).json({ error: "Invalid email or password" })
           }
         })
         .catch(err => console.log(err))

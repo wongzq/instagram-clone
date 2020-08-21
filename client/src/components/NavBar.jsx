@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../App";
+import M from "materialize-css";
 
 const NavBar = () => {
-  const { state } = React.useContext(UserContext);
+  const { state, dispatch } = React.useContext(UserContext);
 
   const renderList = () => {
     if (state) {
@@ -13,6 +14,21 @@ const NavBar = () => {
         </li>,
         <li key="createpost">
           <Link to="/createpost">Create Post</Link>
+        </li>,
+        <li key="logout">
+          <Link
+            to="/signin"
+            onClick={() => {
+              localStorage.clear();
+              dispatch({ type: "LOGOUT" });
+              M.toast({
+                html: "Logged out successfully",
+                classes: "#42a5f5 blue darken-1",
+              });
+            }}
+          >
+            Logout
+          </Link>
         </li>,
       ];
     } else {

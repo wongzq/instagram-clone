@@ -15,7 +15,7 @@ const SignIn = () => {
         email
       )
     ) {
-      M.toast({ html: "invalid email", classes: "#ef5350 red lighten-1" });
+      M.toast({ html: "Invalid email", classes: "#ef5350 red lighten-1" });
       return;
     }
 
@@ -26,8 +26,6 @@ const SignIn = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-
         if (data.error) {
           M.toast({ html: data.error, classes: "#ef5350 red lighten-1" });
           return;
@@ -40,7 +38,7 @@ const SignIn = () => {
         dispatch({ type: "USER", payload: data.user });
 
         M.toast({
-          html: "signed in successfully",
+          html: "Signed in successfully",
           classes: "#42a5f5 blue darken-1",
         });
         history.push("/");
