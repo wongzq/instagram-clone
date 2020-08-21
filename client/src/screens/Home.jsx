@@ -56,6 +56,12 @@ const Home = () => {
             >
               {post.likes.includes(state._id) ? "favorite" : "favorite_border"}
             </i>
+            <i
+              className="material-icons"
+              style={{ margin: "0px 10px", color: "#000" }}
+            >
+              chat_bubble_outline
+            </i>
             <h6>{post.likes.length} likes</h6>
 
             <h6>{post.title}</h6>
