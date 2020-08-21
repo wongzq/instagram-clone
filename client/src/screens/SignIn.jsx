@@ -25,17 +25,17 @@ const SignIn = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.token && data.user) {
-          M.toast({
-            html: "signed in successfully",
-            classes: "#42a5f5 blue darken-1",
-          });
-          history.push("/");
-        }
 
         if (data.error) {
           M.toast({ html: data.error, classes: "#ef5350 red lighten-1" });
+          return;
         }
+
+        M.toast({
+          html: "signed in successfully",
+          classes: "#42a5f5 blue darken-1",
+        });
+        history.push("/");
       })
       .catch((err) => console.log(err));
   };
