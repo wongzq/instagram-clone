@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Post = mongoose.model("Post")
 const requireLogin = require('../middleware/requireLogin')
 
-router.get('/getPosts', (req, res) => {
+router.get('/getPosts', requireLogin, (req, res) => {
   Post.find()
     .populate("postedBy", "_id name")
     .then(posts => {
@@ -22,6 +22,8 @@ router.get('/myPosts', requireLogin, (req, res) => {
 
 router.post('/createPost', requireLogin, (req, res) => {
   const { title, body, imgUrl } = req.body
+
+  console.log(req.body)
 
   // if insufficient fields
   if (!title || !body || !imgUrl) {

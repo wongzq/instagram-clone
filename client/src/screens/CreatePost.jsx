@@ -9,6 +9,36 @@ const CreatePost = () => {
   const [image, setImage] = React.useState("");
   const [imgUrl, setImgUrl] = React.useState("");
 
+  React.useEffect(() => {
+    if (imgUrl) {
+      fetch("/createpost", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+        body: JSON.stringify({ title, body, imgUrl }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) {
+            M.toast({
+              html: data.error,
+              classes: "#ef5350 red lighten-1",
+            });
+            return;
+          }
+
+          M.toast({
+            html: "created post successfully",
+            classes: "#42a5f5 blue darken-1",
+          });
+          history.push("/profile");
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [imgUrl]);
+
   const postDetails = () => {
     const data = new FormData();
     data.append("file", image);
@@ -21,29 +51,6 @@ const CreatePost = () => {
     })
       .then((res) => res.json())
       .then((data) => setImgUrl(data.url))
-      .catch((err) => console.log(err));
-
-    fetch("/createpost", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, body, imgUrl }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) {
-          M.toast({
-            html: data.error,
-            classes: "#ef5350 red lighten-1",
-          });
-          return;
-        }
-
-        M.toast({
-          html: "created post successfully",
-          classes: "#42a5f5 blue darken-1",
-        });
-        history.push("/profile");
-      })
       .catch((err) => console.log(err));
   };
 

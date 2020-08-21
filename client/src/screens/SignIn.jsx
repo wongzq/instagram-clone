@@ -31,6 +31,10 @@ const SignIn = () => {
           return;
         }
 
+        // save to local storage
+        localStorage.setItem("jwt", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+
         M.toast({
           html: "signed in successfully",
           classes: "#42a5f5 blue darken-1",
