@@ -1,15 +1,17 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import M from "materialize-css";
+import { UserContext } from "../App";
 
 const SignIn = () => {
+  const [state, dispatch] = React.useContext(UserContext);
   const history = useHistory();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const PostData = () => {
     // if invalid email format
     if (
-      !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+      !/^(([^<>()\\\\.,;:\s@"]+(\.[^<>()\\\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
         email
       )
     ) {
@@ -34,6 +36,8 @@ const SignIn = () => {
         // save to local storage
         localStorage.setItem("jwt", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
+
+        dispatch({ type: "USER", payload: data.user });
 
         M.toast({
           html: "signed in successfully",
