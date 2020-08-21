@@ -11,7 +11,7 @@ const SignUp = () => {
         <input type="text" placeholder="Password"></input>
         <br />
         <br />
-        <button className="btn waves-effect waves-light #42a5f5 blue lighten-1">
+        <button className="btn waves-effect waves-light #42a5f5 blue darken-1">
           Login
         </button>
         <p>

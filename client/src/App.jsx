@@ -8,6 +8,7 @@ import Home from "./screens/Home";
 import SignUp from "./screens/SignUp";
 import SignIn from "./screens/SignIn";
 import Profile from "./screens/Profile";
+import CreatePost from "./screens/CreatePost";
 
 function App() {
   return (
@@ -31,6 +32,11 @@ function App() {
       {/* Profile */}
       <Route path="/profile">
         <Profile></Profile>
+      </Route>
+
+      {/* Create Post */}
+      <Route path="/createPost">
+        <CreatePost></CreatePost>
       </Route>
     </BrowserRouter>
   );
