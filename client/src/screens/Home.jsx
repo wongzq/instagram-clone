@@ -28,9 +28,31 @@ const Home = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        const newPosts = posts.map((post) => {
-          return post._id === data._id ? data : post;
-        });
+        const newPosts = posts.map((post) =>
+          post._id === data._id ? data : post
+        );
+        setPosts(newPosts);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const newComment = (text, postId) => {
+    if (!text) return;
+    
+    fetch("/comment", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+      body: JSON.stringify({ text, postId }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        const newPosts = posts.map((post) =>
+          post._id === data._id ? data : post
+        );
         setPosts(newPosts);
       })
       .catch((err) => console.log(err));
@@ -66,7 +88,22 @@ const Home = () => {
 
             <h6>{post.title}</h6>
             <p>{post.body}</p>
-            <input type="text" placeholder="Add a comment"></input>
+            {post.comments.map((comment) => (
+              <h6 key={comment._id}>
+                <span style={{ fontWeight: "500" }}>
+                  {comment.postedBy.name}
+                </span>{" "}
+                {comment.text}
+              </h6>
+            ))}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                newComment(e.target[0].value, post._id);
+              }}
+            >
+              <input type="text" placeholder="Add a comment"></input>
+            </form>
           </div>
         </div>
       ))}
