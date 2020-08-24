@@ -2,6 +2,11 @@ import React from "react";
 import { UserContext } from "../App";
 
 const Home = () => {
+  const authHeaders = {
+    "Content-Type": "application/json",
+    authorization: `Bearer ${localStorage.getItem("jwt")}`,
+  };
+
   const [posts, setPosts] = React.useState([]);
   const { state } = React.useContext(UserContext);
 
@@ -20,10 +25,7 @@ const Home = () => {
   const toggleLikePost = (id, liked) => {
     fetch(liked ? "/unlike" : "/like", {
       method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
+      headers: authHeaders,
       body: JSON.stringify({ postId: id }),
     })
       .then((res) => res.json())
@@ -38,13 +40,10 @@ const Home = () => {
 
   const newComment = (text, postId) => {
     if (!text) return;
-    
+
     fetch("/comment", {
       method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
+      headers: authHeaders,
       body: JSON.stringify({ text, postId }),
     })
       .then((res) => res.json())
@@ -58,11 +57,38 @@ const Home = () => {
       .catch((err) => console.log(err));
   };
 
+  const deletePost = (postId) => {
+    fetch(`/deletePost/${postId}`, {
+      method: "delete",
+      headers: authHeaders,
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        const newPosts = posts.filter((post) => post._id !== result._id);
+        setPosts(newPosts);
+      });
+  };
+
   return (
     <div className="home">
       {posts.map((post) => (
         <div className="card home-card" key={post._id}>
-          <h5>{post.postedBy.name}</h5>
+          <h5>
+            {post.postedBy.name}
+            {post.postedBy._id === state._id && (
+              <i
+                className="material-icons"
+                style={{ float: "right", color: "#000" }}
+                onClick={() => {
+                  console.log(post._id);
+                  deletePost(post._id);
+                }}
+              >
+                delete
+              </i>
+            )}
+          </h5>
           <div className="card-image">
             <img alt="" src={post.imgUrl}></img>
           </div>
