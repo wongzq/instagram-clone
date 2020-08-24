@@ -76,7 +76,7 @@ const CreatePost = () => {
         value={body}
         onChange={(e) => setBody(e.target.value)}
       ></input>
-      <div className="file-field input-field">
+      <div className="file-field">
         <div className="btn #42a5f5 blue darken-1">
           <span>Upload image</span>
           <input
@@ -85,7 +85,7 @@ const CreatePost = () => {
           ></input>
         </div>
         <div className="file-path-wrapper">
-          <input className="file-path validate" type="text"></input>
+          <input className="file-path validate input-field" type="text"></input>
         </div>
       </div>
 

@@ -91,7 +91,8 @@ const Home = () => {
       {posts.map((post) => (
         <div className="card home-card" key={post._id}>
           <h5>
-            <Link className="cursor-pointer"
+            <Link
+              className="cursor-pointer"
               to={
                 post.postedBy._id === state._id
                   ? `/profile`
@@ -153,12 +154,16 @@ const Home = () => {
               </h6>
             ))}
             <form
+              className="input-field"
               onSubmit={(e) => {
                 e.preventDefault();
                 comment(e.target[0].value, post._id);
               }}
             >
-              <input type="text" placeholder="Add a comment"></input>
+              <input
+                type="text"
+                placeholder="Add a comment"
+              ></input>
             </form>
           </div>
         </div>
