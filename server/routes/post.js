@@ -106,9 +106,7 @@ router.put('/comment', requireLogin, (req, res) => {
 
   Post.findByIdAndUpdate(req.body.postId, {
       $push: { comments: comment }
-    }, {
-      new: true
-    })
+    }, { new: true })
     .populate("postedBy", "_id name")
     .populate("comments.postedBy", "_id name")
     .exec((err, result) => {
@@ -118,6 +116,15 @@ router.put('/comment', requireLogin, (req, res) => {
 
       res.json(result)
     })
+})
+
+router.put('/uncomment', requireLogin, (req, res) => {
+  Post.findByIdAndUpdate(req.body.postId, {
+      $pull: { comments: { _id: req.body.commentId } }
+    }, { new: true })
+    .populate("postedBy", "_id name")
+    .populate("comments.postedBy", "_id name")
+    .exec((err, result) => (err ? res.status(422).json({ error: err }) : res.json(result)))
 })
 
 module.exports = router

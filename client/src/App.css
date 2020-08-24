@@ -49,3 +49,7 @@ input[type=password]:focus {
   left: 0;
   right: 0;
 }
+
+i {
+  cursor: pointer;
+}

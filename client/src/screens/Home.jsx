@@ -38,7 +38,7 @@ const Home = () => {
       .catch((err) => console.log(err));
   };
 
-  const newComment = (text, postId) => {
+  const comment = (text, postId) => {
     if (!text) return;
 
     fetch("/comment", {
@@ -57,15 +57,31 @@ const Home = () => {
       .catch((err) => console.log(err));
   };
 
+  const uncomment = (postId, commentId) => {
+    if (!postId || !commentId) return;
+
+    fetch("/uncomment", {
+      method: "put",
+      headers: authHeaders,
+      body: JSON.stringify({ postId, commentId }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const newPosts = posts.map((post) =>
+          post._id === data._id ? data : post
+        );
+        setPosts(newPosts);
+      });
+  };
+
   const deletePost = (postId) => {
     fetch(`/deletePost/${postId}`, {
       method: "delete",
       headers: authHeaders,
     })
       .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-        const newPosts = posts.filter((post) => post._id !== result._id);
+      .then((data) => {
+        const newPosts = posts.filter((post) => post._id !== data._id);
         setPosts(newPosts);
       });
   };
@@ -80,10 +96,7 @@ const Home = () => {
               <i
                 className="material-icons"
                 style={{ float: "right", color: "#000" }}
-                onClick={() => {
-                  console.log(post._id);
-                  deletePost(post._id);
-                }}
+                onClick={() => deletePost(post._id)}
               >
                 delete
               </i>
@@ -120,12 +133,21 @@ const Home = () => {
                   {comment.postedBy.name}
                 </span>{" "}
                 {comment.text}
+                {comment.postedBy._id === state._id && (
+                  <i
+                    className="material-icons"
+                    style={{ float: "right", color: "#000" }}
+                    onClick={() => uncomment(post._id, comment._id)}
+                  >
+                    delete
+                  </i>
+                )}
               </h6>
             ))}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                newComment(e.target[0].value, post._id);
+                comment(e.target[0].value, post._id);
               }}
             >
               <input type="text" placeholder="Add a comment"></input>
