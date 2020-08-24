@@ -47,12 +47,6 @@ router.delete('/deletePost/:postId', requireLogin, (req, res) => {
     .populate("postedBy", "_id")
     .populate("comments.postedBy", "_id name")
     .exec((err, post) => {
-      if (err) {
-        console.log(err)
-      }
-      if (!post) {
-        console.log("no post")
-      }
       if (err || !post) {
         return res.status(422).json({ error: err })
       }

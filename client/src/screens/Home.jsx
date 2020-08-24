@@ -49,7 +49,6 @@ const Home = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         const newPosts = posts.map((post) =>
           post._id === data._id ? data : post
         );

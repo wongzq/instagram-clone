@@ -36,18 +36,21 @@ router.put('/follow', requireLogin, (req, res) => {
 })
 
 router.put('/unfollow', requireLogin, (req, res) => {
-  User.findByIdAndUpdate(req.body.followeeId, {
-    $pull: { followers: req.user._id }
-  }, { new: true }, (err) => {
-    if (err) return res.status(422).json({ error: err });
-
-    User.findByIdAndUpdate(req.user._id, {
+  User.findByIdAndUpdate(
+    req.body.followeeId, {
+      $pull: { followers: req.user._id }
+    }, { new: true }, (err) =>
+    err ?
+    res.status(422).json({ error: err }) :
+    User.findByIdAndUpdate(
+      req.user._id, {
         $pull: { following: req.body.followeeId }
       }, { new: true })
-      .select("-password")
-      .then(result => result.json())
-      .catch(err => res.status(422).json({ error: err }))
-  })
+    .select("-password")
+    .then(result => res.json(result))
+    .then(data => console.log(data))
+    .catch(err => res.status(422).json({ error: err }))
+  )
 })
 
 module.exports = router

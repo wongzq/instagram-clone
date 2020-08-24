@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 const Profile = () => {
   const [userProfile, setUserProfile] = React.useState(null);
+  const [followed, setFollowed] = React.useState(null);
   const { state, dispatch } = React.useContext(UserContext);
   const { userId } = useParams();
 
@@ -19,23 +20,43 @@ const Profile = () => {
       },
     })
       .then((res) => res.json())
-      .then((data) => setUserProfile(data));
+      .then((data) => {
+        setUserProfile(data);
+        const me = JSON.parse(localStorage.getItem("user"));
+        setFollowed(me.following.includes(userId));
+      });
   }, []);
 
   const toggleFollowUser = () => {
-    fetch("/follow", {
+    if (followed === null) return;
+
+    fetch(followed ? "/unfollow" : "/follow", {
       method: "put",
       headers: authHeaders,
       body: JSON.stringify({ followeeId: userId }),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         dispatch({
           type: "UPDATE",
           payload: { followers: data.followers, following: data.following },
         });
         localStorage.setItem("user", JSON.stringify(data));
+
+        setUserProfile((prevState) => ({
+          ...prevState,
+          user: {
+            ...prevState.user,
+            followers: followed
+              ? prevState.user.followers.filter(
+                  (follower) => follower !== data._id
+                )
+              : prevState.user.followers.push(data._id),
+          },
+        }));
+
+        const me = JSON.parse(localStorage.getItem("user"));
+        setFollowed(me.following.includes(userId));
       });
   };
 
@@ -73,11 +94,12 @@ const Profile = () => {
             <h6>{userProfile.user.followers.length} followers</h6>
             <h6>{userProfile.user.following.length} following</h6>
           </div>
+
           <button
             className="btn waves-effect waves-light #42a5f5 blue darken-1"
             onClick={() => toggleFollowUser()}
           >
-            follow
+            {followed === null ? "loading" : followed ? "unfollow" : "follow"}
           </button>
         </div>
       </div>
