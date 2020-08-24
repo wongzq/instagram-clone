@@ -7,6 +7,7 @@ require('dotenv').config()
 
 const authRouter = require('./routes/auth')
 const postRouter = require('./routes/post')
+const postRouter = require('./routes/user')
 
 const app = express()
 const PORT = 5000
