@@ -7,7 +7,7 @@ require('dotenv').config()
 
 const authRouter = require('./routes/auth')
 const postRouter = require('./routes/post')
-const postRouter = require('./routes/user')
+const userRouter = require('./routes/user')
 
 const app = express()
 const PORT = 5000
@@ -34,6 +34,7 @@ mongoose.connection.on('error', (err) => {
 app.use(express.json())
 app.use(authRouter)
 app.use(postRouter)
+app.use(userRouter)
 
 // listen
 app.listen(PORT, () => {

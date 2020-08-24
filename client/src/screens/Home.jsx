@@ -1,5 +1,6 @@
 import React from "react";
 import { UserContext } from "../App";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const authHeaders = {
@@ -91,7 +92,15 @@ const Home = () => {
       {posts.map((post) => (
         <div className="card home-card" key={post._id}>
           <h5>
-            {post.postedBy.name}
+            <Link className="cursor-pointer"
+              to={
+                post.postedBy._id === state._id
+                  ? `/profile`
+                  : `/profile/${post.postedBy._id}`
+              }
+            >
+              {post.postedBy.name}
+            </Link>
             {post.postedBy._id === state._id && (
               <i
                 className="material-icons"

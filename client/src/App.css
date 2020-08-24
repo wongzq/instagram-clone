@@ -50,6 +50,7 @@ input[type=password]:focus {
   right: 0;
 }
 
-i {
+i,
+.cursor-pointer {
   cursor: pointer;
 }

@@ -8,6 +8,7 @@ import Home from "./screens/Home";
 import SignUp from "./screens/SignUp";
 import SignIn from "./screens/SignIn";
 import Profile from "./screens/Profile";
+import UserProfile from "./screens/UserProfile";
 import CreatePost from "./screens/CreatePost";
 
 const UserContext = React.createContext();
@@ -42,9 +43,14 @@ const AppRouting = () => {
         <SignIn></SignIn>
       </Route>
 
-      {/* Profile */}
-      <Route path="/profile">
+      {/* My Profile */}
+      <Route exact path="/profile">
         <Profile></Profile>
+      </Route>
+
+      {/* User Profile */}
+      <Route path="/profile/:userId">
+        <UserProfile></UserProfile>
       </Route>
 
       {/* Create Post */}
