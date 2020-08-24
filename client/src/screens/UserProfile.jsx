@@ -4,8 +4,13 @@ import { useParams } from "react-router-dom";
 
 const Profile = () => {
   const [userProfile, setUserProfile] = React.useState(null);
-  // const { state } = React.useContext(UserContext);
+  const { state, dispatch } = React.useContext(UserContext);
   const { userId } = useParams();
+
+  const authHeaders = {
+    "Content-Type": "application/json",
+    authorization: `Bearer ${localStorage.getItem("jwt")}`,
+  };
 
   React.useEffect(() => {
     fetch(`/users/${userId}`, {
@@ -16,6 +21,23 @@ const Profile = () => {
       .then((res) => res.json())
       .then((data) => setUserProfile(data));
   }, []);
+
+  const toggleFollowUser = () => {
+    fetch("/follow", {
+      method: "put",
+      headers: authHeaders,
+      body: JSON.stringify({ followeeId: userId }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        dispatch({
+          type: "UPDATE",
+          payload: { followers: data.followers, following: data.following },
+        });
+        localStorage.setItem("user", JSON.stringify(data));
+      });
+  };
 
   return userProfile ? (
     <div style={{ maxWidth: "700px", margin: "0px auto" }}>
@@ -48,9 +70,15 @@ const Profile = () => {
             }}
           >
             <h6>{userProfile.posts.length} posts</h6>
-            <h6>0 followers</h6>
-            <h6>0 following</h6>
+            <h6>{userProfile.user.followers.length} followers</h6>
+            <h6>{userProfile.user.following.length} following</h6>
           </div>
+          <button
+            className="btn waves-effect waves-light #42a5f5 blue darken-1"
+            onClick={() => toggleFollowUser()}
+          >
+            follow
+          </button>
         </div>
       </div>
       <div className="gallery">
