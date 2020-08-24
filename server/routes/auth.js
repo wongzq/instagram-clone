@@ -73,9 +73,9 @@ router.post('/signin', (req, res) => {
           if (validPassword) {
 
             // generate jwt token
-            const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET)
-            const { id: _id, name, email } = savedUser
-            res.json({ token, user: { _id, name, email } })
+            const token = jwt.sign({ _id: savedUser._id }, process.env.JWT_SECRET)
+            const { _id, name, email, followers, following } = savedUser
+            res.json({ token, user: { _id, name, email, followers, following } })
           } else {
             return res.status(422).json({ error: "Invalid email or password" })
           }

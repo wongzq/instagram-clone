@@ -15,7 +15,9 @@ const Profile = () => {
       .then((data) => setPosts(data.posts));
   }, []);
 
-  return (
+  console.log(state);
+
+  return state ? (
     <div style={{ maxWidth: "700px", margin: "0px auto" }}>
       <div
         style={{
@@ -37,7 +39,7 @@ const Profile = () => {
           ></img>
         </div>
         <div>
-          <h4>{state ? state.name : "loading"}</h4>
+          <h4>{state.name}</h4>
           <div
             style={{
               display: "flex",
@@ -45,9 +47,11 @@ const Profile = () => {
               width: "110%",
             }}
           >
-            <h6>40 posts</h6>
-            <h6>324 followers</h6>
-            <h6>173 following</h6>
+            <h6>
+              {posts.length} {posts.length === 1 ? "post" : "posts"}
+            </h6>
+            <h6>{state.followers.length} followers</h6>
+            <h6>{state.following.length} following</h6>
           </div>
         </div>
       </div>
@@ -62,6 +66,10 @@ const Profile = () => {
         ))}
       </div>
     </div>
+  ) : (
+    <h2 className="grand-hotel-font" style={{ textAlign: "center" }}>
+      loading . . .
+    </h2>
   );
 };
 

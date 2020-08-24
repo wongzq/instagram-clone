@@ -90,7 +90,10 @@ const Profile = () => {
               width: "110%",
             }}
           >
-            <h6>{userProfile.posts.length} posts</h6>
+            <h6>
+              {userProfile.posts.length}{" "}
+              {userProfile.posts.length === 1 ? "post" : "posts"}
+            </h6>
             <h6>{userProfile.user.followers.length} followers</h6>
             <h6>{userProfile.user.following.length} following</h6>
           </div>
