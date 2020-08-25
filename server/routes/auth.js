@@ -9,12 +9,6 @@ const { JWT_SECRET } = require("../config/keys")
 
 require('dotenv').config()
 
-router.get('/', (req, res) => {
-  User.find({}).then(users => {
-    res.send(users)
-  })
-})
-
 router.get('/protected', requireLogin, (req, res) => {
   res.json({ "result": "you managed to get this protected resource" })
 })

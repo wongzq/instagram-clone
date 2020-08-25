@@ -18,9 +18,7 @@ const Home = () => {
       },
     })
       .then((res) => res.json())
-      .then((data) => {
-        setPosts(data.posts);
-      });
+      .then((data) => setPosts(data.posts.reverse()));
   }, []);
 
   const toggleLikePost = (id, liked) => {
@@ -160,10 +158,7 @@ const Home = () => {
                 comment(e.target[0].value, post._id);
               }}
             >
-              <input
-                type="text"
-                placeholder="Add a comment"
-              ></input>
+              <input type="text" placeholder="Add a comment"></input>
             </form>
           </div>
         </div>
