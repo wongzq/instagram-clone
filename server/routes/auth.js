@@ -5,6 +5,8 @@ const requireLogin = require('../middleware/requireLogin')
 const mongoose = require('mongoose')
 const User = mongoose.model("User")
 
+const { JWT_SECRET } = require("../config/keys")
+
 require('dotenv').config()
 
 router.get('/', (req, res) => {
@@ -73,7 +75,7 @@ router.post('/signin', (req, res) => {
           if (validPassword) {
 
             // generate jwt token
-            const token = jwt.sign({ _id: savedUser._id }, process.env.JWT_SECRET)
+            const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET)
             const { _id, name, email, followers, following } = savedUser
             res.json({ token, user: { _id, name, email, followers, following } })
           } else {

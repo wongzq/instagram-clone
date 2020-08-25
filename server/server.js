@@ -9,12 +9,12 @@ const authRouter = require('./routes/auth')
 const postRouter = require('./routes/post')
 const userRouter = require('./routes/user')
 
+const { MONGODB_URI } = require('./config/keys')
 const app = express()
-const PORT = 5000
-const URI = process.env.MONGODB_URI
+const PORT = process.env.PORT || 5000
 
 // connect to MongoDB
-mongoose.connect(URI, {
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
@@ -35,6 +35,14 @@ app.use(express.json())
 app.use(authRouter)
 app.use(postRouter)
 app.use(userRouter)
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("../client/build"))
+  const path = require('path')
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../", "client", "build", "index.html"))
+  })
+}
 
 // listen
 app.listen(PORT, () => {
