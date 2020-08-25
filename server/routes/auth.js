@@ -19,7 +19,7 @@ router.get('/protected', requireLogin, (req, res) => {
   res.json({ "result": "you managed to get this protected resource" })
 })
 
-router.post('/signup', (req, res) => {
+router.post('/signUp', (req, res) => {
   const { email, password, name } = req.body
 
   // if incomplete fields
@@ -53,7 +53,7 @@ router.post('/signup', (req, res) => {
     .catch((err) => console.log(err))
 })
 
-router.post('/signin', (req, res) => {
+router.post('/signIn', (req, res) => {
   const { email, password } = req.body
 
   // if incomplete fields
