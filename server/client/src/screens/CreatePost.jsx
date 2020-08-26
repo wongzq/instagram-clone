@@ -33,6 +33,7 @@ const CreatePost = () => {
             html: "Created post successfully",
             classes: "#42a5f5 blue darken-1",
           });
+          
           history.push("/profile");
         })
         .catch((err) => console.log(err));
