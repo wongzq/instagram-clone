@@ -161,7 +161,7 @@ const Post = (props) => {
               <i
                 className="material-icons"
                 style={{ float: "right", color: "#000" }}
-                onClick={() => uncomment(post._id, comment._id)}
+                onClick={() => uncomment(comment._id)}
               >
                 close
               </i>
@@ -181,11 +181,7 @@ const Post = (props) => {
           >
             <input type="text" placeholder="Add a comment" />
             <button>
-              <i
-                className="material-icons btn-send"
-              >
-                send
-              </i>
+              <i className="material-icons btn-send">send</i>
             </button>
           </form>
         ) : null}

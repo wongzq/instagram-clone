@@ -112,9 +112,8 @@ const Profile = () => {
       <div className="gallery">
         {userProfile.posts &&
           userProfile.posts.map((post) => (
-            <div className="gallery-item-container">
+            <div className="gallery-item-container" key={post._id}>
               <img
-                key={post._id}
                 alt=""
                 className="gallery-item"
                 src={post.imgUrl}
