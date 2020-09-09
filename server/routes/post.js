@@ -21,17 +21,16 @@ router.get('/myPosts', requireLogin, (req, res) => {
 })
 
 router.post('/createPost', requireLogin, (req, res) => {
-  const { title, body, imgUrl } = req.body
+  const { body, imgUrl } = req.body
 
   // if insufficient fields
-  if (!title || !body || !imgUrl) {
-    return res.status(422).json({ error: "Tnsufficient fields" })
+  if (!body || !imgUrl) {
+    return res.status(422).json({ error: "Insufficient fields" })
   }
 
   req.user.password = undefined
 
   const post = new Post({
-    title,
     body,
     imgUrl,
     postedBy: req.user,

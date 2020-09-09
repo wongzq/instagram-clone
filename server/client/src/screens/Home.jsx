@@ -26,7 +26,7 @@ const Home = () => {
     <PostsContext.Provider value={{ postsState, postsDispatch }}>
       <div className="home">
         {postsState.map((post) => (
-          <Post post={post} />
+          <Post key={post._id} post={post} />
         ))}
       </div>
     </PostsContext.Provider>

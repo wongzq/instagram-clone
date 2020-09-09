@@ -94,8 +94,8 @@ function Post(props) {
           </i>
         )}
       </h5>
-      <div className="card-image">
-        <img alt="" src={post.imgUrl}></img>
+      <div className="img-container">
+        <img className="img-content" alt="" src={post.imgUrl}></img>
       </div>
       <div className="card-content">
         <i
