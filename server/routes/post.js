@@ -21,11 +21,15 @@ router.get('/myPosts', requireLogin, (req, res) => {
 })
 
 router.post('/createPost', requireLogin, (req, res) => {
-  const { body, imgUrl } = req.body
+  let { body, imgUrl } = req.body
 
   // if insufficient fields
-  if (!body || !imgUrl) {
+  if (!imgUrl) {
     return res.status(422).json({ error: "Insufficient fields" })
+  }
+
+  if (!body) {
+    body = "";
   }
 
   req.user.password = undefined
@@ -52,9 +56,7 @@ router.delete('/deletePost/:postId', requireLogin, (req, res) => {
 
       if (post.postedBy._id.toString() === req.user._id.toString()) {
         post.remove()
-          .then(result => {
-            res.json(result)
-          })
+          .then(result => res.json(result))
           .catch(err => console.log(err))
       }
     })

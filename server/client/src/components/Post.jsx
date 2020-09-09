@@ -5,7 +5,7 @@ import { PostsContext } from "../screens/Home";
 import "./Post.css";
 import M from "materialize-css";
 
-function Post(props) {
+const Post = (props) => {
   // auth constant
   const authHeaders = {
     "Content-Type": "application/json",
@@ -35,28 +35,29 @@ function Post(props) {
       .catch((err) => console.log(err));
   };
 
-  const comment = (text, postId) => {
+  const comment = async (text) => {
     if (!text) return;
 
-    return fetch("/comment", {
-      method: "put",
-      headers: authHeaders,
-      body: JSON.stringify({ text, postId }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setPost(data);
-      })
-      .catch((err) => console.log(err));
+    try {
+      const res = await fetch("/comment", {
+        method: "put",
+        headers: authHeaders,
+        body: JSON.stringify({ text, postId: post._id }),
+      });
+      const data = await res.json();
+      setPost(data);
+    } catch (err) {
+      return console.log(err);
+    }
   };
 
-  const uncomment = (postId, commentId) => {
-    if (!postId || !commentId) return;
+  const uncomment = (commentId) => {
+    if (!commentId) return;
 
     fetch("/uncomment", {
       method: "put",
       headers: authHeaders,
-      body: JSON.stringify({ postId, commentId }),
+      body: JSON.stringify({ postId: post._id, commentId }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -64,15 +65,13 @@ function Post(props) {
       });
   };
 
-  const deletePost = (postId) => {
-    fetch(`/deletePost/${postId}`, {
+  const deletePost = () => {
+    fetch(`/deletePost/${post._id}`, {
       method: "delete",
       headers: authHeaders,
     })
       .then((res) => res.json())
-      .then((data) => {
-        postsDispatch({ type: "DELETE", payload: data });
-      });
+      .then((data) => postsDispatch({ type: "DELETE", payload: data }));
   };
 
   return (
@@ -93,7 +92,9 @@ function Post(props) {
           <div
             className="dropdown-trigger"
             data-target={
-              state._id === post.postedBy._id ? "dropdown1" : "dropdown2"
+              state._id === post.postedBy._id
+                ? `dropdown1${post._id}`
+                : `dropdown2${post._id}`
             }
           >
             <i
@@ -103,14 +104,20 @@ function Post(props) {
               more_vert
             </i>
           </div>
-          <ul id="dropdown1" className="dropdown-content">
+          <ul
+            id={`dropdown1${post._id}`}
+            className="dropdown-content dropdown1"
+          >
             <li>
-              <div id="delete" onClick={() => deletePost(post._id)}>
+              <div id="delete" onClick={() => deletePost()}>
                 <span>Delete post</span>
               </div>
             </li>
           </ul>
-          <ul id="dropdown2" className="dropdown-content">
+          <ul
+            id={`dropdown2${post._id}`}
+            className="dropdown-content dropdown2"
+          >
             <li>
               <div id="follow" onClick={() => {}}>
                 <span>Follow</span>
@@ -186,6 +193,6 @@ function Post(props) {
       </div>
     </div>
   );
-}
+};
 
 export default Post;

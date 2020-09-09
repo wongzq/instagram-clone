@@ -66,31 +66,38 @@ const CreatePost = () => {
         textAlign: "center",
       }}
     >
-      <div className="file-field">
-        {imgPreview ? (
-          <div className="img-preview-container">
-            <img className="img-preview" src={imgPreview} alt="" />
-          </div>
-        ) : null}
-        <div className="file-btn-container">
-          <div className="btn #42a5f5 blue darken-1">
-            <span>Upload image</span>
-            <input
-              type="file"
-              accept="image/x-png,image/jpeg"
-              onChange={(e) => {
-                if (e.target.files.length > 0) {
-                  setImgPreview(URL.createObjectURL(e.target.files[0]));
-                  setImage(e.target.files[0]);
-                }
-              }}
-            />
+      {imgPreview ? (
+        <div className="img-preview-container">
+          <img className="img-preview" src={imgPreview} alt="" />
+        </div>
+      ) : null}
+      <div className="create-post-btn-container">
+        <div className="file-field">
+          <div className="file-btn-container">
+            <div className="btn create-post-btn">
+              <span>Choose image</span>
+              <input
+                type="file"
+                accept="image/x-png,image/jpeg"
+                onChange={(e) => {
+                  if (e.target.files.length > 0) {
+                    setImgPreview(URL.createObjectURL(e.target.files[0]));
+                    setImage(e.target.files[0]);
+                  }
+                }}
+              />
+            </div>
           </div>
         </div>
+
+        <button className="btn create-post-btn" onClick={() => postDetails()}>
+          Share
+        </button>
       </div>
 
       <input
         type="text"
+        className="create-post-caption"
         placeholder="Write a caption . . ."
         value={body}
         onChange={(e) => {
@@ -99,13 +106,6 @@ const CreatePost = () => {
           }
         }}
       ></input>
-
-      <button
-        className="btn waves-effect waves-light #42a5f5 blue darken-1"
-        onClick={() => postDetails()}
-      >
-        Create
-      </button>
     </div>
   );
 };
