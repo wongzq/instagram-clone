@@ -1,5 +1,4 @@
 import React from "react";
-import "./Home.css";
 import Post from "../components/Post";
 import { reducer, initState } from "../reducers/PostsReducer";
 

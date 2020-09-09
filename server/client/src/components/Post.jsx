@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import { UserContext } from "../App";
 import { PostsContext } from "../screens/Home";
+import "./Post.css";
 
 function Post(props) {
   // auth constant
