@@ -31,7 +31,9 @@
   left: 0;
 }
 
-.create-post-btn {
+.create-post-btn,
+.create-post-btn:active,
+.create-post-btn:focus {
   background-color: white !important;
   color: #42a5f5 !important;
   box-shadow: none;
