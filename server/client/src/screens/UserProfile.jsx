@@ -1,6 +1,7 @@
 import React from "react";
 import { UserContext } from "../App";
 import { useParams } from "react-router-dom";
+import "./UserProfile.css";
 
 const Profile = () => {
   const [userProfile, setUserProfile] = React.useState(null);
@@ -87,8 +88,8 @@ const Profile = () => {
             <button
               className={
                 followed
-                  ? "btn waves-effect waves-light grey lighten-1"
-                  : "btn waves-effect waves-light blue darken-1"
+                  ? "btn waves-effect waves-light grey lighten-1 btn-follow"
+                  : "btn waves-effect waves-light blue darken-1 btn-follow"
               }
               onClick={() => toggleFollowUser()}
             >

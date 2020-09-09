@@ -1,0 +1,7 @@
+.btn-follow,
+.btn-follow:hover,
+.btn-follow:active,
+.btn-follow:focus {
+  color: white !important;
+  font-size: 1rem;
+}

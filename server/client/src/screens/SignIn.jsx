@@ -74,6 +74,38 @@ const SignIn = () => {
           </Link>
         </p>
       </div>
+
+      <br />
+      <div
+        className="note"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          textAlign: "center",
+        }}
+      >
+        This is just an Instagram clone.
+      </div>
+      <div
+        className="note"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          textAlign: "center",
+        }}
+      >
+        <b>DO NOT use your actual Instagram account to log in.</b>
+      </div>
+      <div
+        className="note"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          textAlign: "center",
+        }}
+      >
+        You can log in using, email:<b> abc@abc.com</b>, pass:<b>abcde</b>
+      </div>
     </div>
   );
 };

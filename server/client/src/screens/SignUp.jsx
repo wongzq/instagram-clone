@@ -71,6 +71,41 @@ const SignUp = () => {
           </Link>
         </p>
       </div>
+
+      <br />
+      <div
+        className="note"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          textAlign: "center",
+        }}
+      >
+        This is just an Instagram clone.
+      </div>
+      <div
+        className="note"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          textAlign: "center",
+        }}
+      >
+        <b>DO NOT use your actual credentials to sign up.</b>
+      </div>
+      <div
+        className="note"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          textAlign: "center",
+        }}
+      >
+        <p>
+          You can create an account using a mock email such as{" "}
+          <b>abc@abc.com</b>
+        </p>
+      </div>
     </div>
   );
 };
