@@ -1,0 +1,9 @@
+nav.nav-container {
+  padding: 0 2rem;
+  background-color: white !important;
+}
+
+.nav-wrapper {
+  margin:auto;
+  max-width: 80rem;
+}

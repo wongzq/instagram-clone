@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../App";
 import M from "materialize-css";
+import "./NavBar.css";
 
 const NavBar = () => {
   const { state, dispatch } = React.useContext(UserContext);
@@ -47,7 +48,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav>
+    <nav className="nav-container">
       <div className="nav-wrapper white">
         <Link
           to={state ? "/" : "/signin"}
