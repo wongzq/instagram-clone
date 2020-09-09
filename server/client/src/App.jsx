@@ -24,7 +24,7 @@ const AppRouting = () => {
     } else {
       history.push("/signin");
     }
-  }, []);
+  }, [history, dispatch]);
 
   return (
     <Switch>

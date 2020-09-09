@@ -39,7 +39,7 @@ const CreatePost = () => {
         })
         .catch((err) => console.log(err));
     }
-  }, [imgUrl]);
+  }, [imgUrl, body, history]); // react-hooks/exhaustive-deps
 
   const postDetails = () => {
     const data = new FormData();

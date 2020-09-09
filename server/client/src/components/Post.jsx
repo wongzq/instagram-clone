@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../App";
 import { PostsContext } from "../screens/Home";
 import "./Post.css";
+import M from "materialize-css";
 
 function Post(props) {
   // auth constant
@@ -16,6 +17,9 @@ function Post(props) {
   const { postsDispatch } = React.useContext(PostsContext);
   const [post, setPost] = React.useState(props.post);
   const [showComment, setShowComment] = React.useState(false);
+  React.useEffect(() => {
+    M.AutoInit();
+  }, []);
 
   // methods
   const toggleLikePost = (id, liked) => {
@@ -84,15 +88,36 @@ function Post(props) {
         >
           {post.postedBy.name}
         </Link>
-        {post.postedBy._id === state._id && (
-          <i
-            className="material-icons"
-            style={{ float: "right", color: "#000" }}
-            onClick={() => deletePost(post._id)}
+
+        <div style={{ float: "right" }}>
+          <div
+            className="dropdown-trigger"
+            data-target={
+              state._id === post.postedBy._id ? "dropdown1" : "dropdown2"
+            }
           >
-            delete
-          </i>
-        )}
+            <i
+              className="material-icons"
+              style={{ float: "right", color: "#000" }}
+            >
+              more_vert
+            </i>
+          </div>
+          <ul id="dropdown1" className="dropdown-content">
+            <li>
+              <div id="delete" onClick={() => deletePost(post._id)}>
+                <span>Delete post</span>
+              </div>
+            </li>
+          </ul>
+          <ul id="dropdown2" className="dropdown-content">
+            <li>
+              <div id="follow" onClick={() => {}}>
+                <span>Follow</span>
+              </div>
+            </li>
+          </ul>
+        </div>
       </h5>
       <div className="img-container">
         <img className="img-content" alt="" src={post.imgUrl}></img>

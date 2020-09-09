@@ -35,3 +35,32 @@ button:active {
   right: 0;
   left: 0;
 }
+
+#dropdown1,
+#dropdown2 {
+  background: white !important;
+  border-radius: 1rem;
+  width: 10rem !important;
+  transform: translateY(-2rem);
+}
+
+.dropdown-content #delete {
+  display: flex;
+  color: red !important;
+}
+
+.dropdown-content div {
+  padding: 1rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background: #fff;
+}
+
+.dropdown-content #delete:hover {
+  color: red;
+  background: #eee;
+}
+
+.dropdown-content #follow:hover {
+  background: #eee;
+}

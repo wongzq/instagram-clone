@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 const Profile = () => {
   const [userProfile, setUserProfile] = React.useState(null);
   const [followed, setFollowed] = React.useState(null);
-  const { state, dispatch } = React.useContext(UserContext);
+  const { dispatch } = React.useContext(UserContext);
   const { userId } = useParams();
 
   const authHeaders = {
@@ -25,7 +25,7 @@ const Profile = () => {
         const me = JSON.parse(localStorage.getItem("user"));
         setFollowed(me.following.includes(userId));
       });
-  }, []);
+  }, [userId]);
 
   const toggleFollowUser = () => {
     if (followed === null) return;
