@@ -11,12 +11,13 @@ function Post(props) {
     authorization: `Bearer ${localStorage.getItem("jwt")}`,
   };
 
-  // user state
+  // React Hooks
   const { state } = React.useContext(UserContext);
-  const { postsState, postsDispatch } = React.useContext(PostsContext);
+  const { postsDispatch } = React.useContext(PostsContext);
   const [post, setPost] = React.useState(props.post);
+  const [showComment, setShowComment] = React.useState(false);
 
-  // functions
+  // methods
   const toggleLikePost = (id, liked) => {
     fetch(liked ? "/unlike" : "/like", {
       method: "put",
@@ -111,6 +112,7 @@ function Post(props) {
         <i
           className="material-icons"
           style={{ margin: "0px 10px", color: "#000" }}
+          onClick={() => setShowComment((prev) => !prev)}
         >
           chat_bubble_outline
         </i>
@@ -134,26 +136,28 @@ function Post(props) {
             )}
           </h6>
         ))}
-        <form
-          className="input-field post-comment-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.persist();
-            comment(e.target[0].value, post._id).then(
-              (_) => (e.target[0].value = "")
-            );
-          }}
-        >
-          <input type="text" placeholder="Add a comment" />
-          <button>
-            <i
-              className="material-icons"
-              style={{ marginLeft: "2rem", color: "#000" }}
-            >
-              send
-            </i>
-          </button>
-        </form>
+        {showComment ? (
+          <form
+            className="input-field post-comment-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.persist();
+              comment(e.target[0].value, post._id).then(
+                (_) => (e.target[0].value = "")
+              );
+            }}
+          >
+            <input type="text" placeholder="Add a comment" />
+            <button>
+              <i
+                className="material-icons"
+                style={{ marginLeft: "2rem", color: "#000" }}
+              >
+                send
+              </i>
+            </button>
+          </form>
+        ) : null}
       </div>
     </div>
   );
