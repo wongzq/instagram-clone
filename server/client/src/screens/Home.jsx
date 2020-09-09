@@ -1,6 +1,7 @@
 import React from "react";
 import { UserContext } from "../App";
 import { Link } from "react-router-dom";
+import "./Home.css";
 
 const Home = () => {
   const authHeaders = {
@@ -40,7 +41,7 @@ const Home = () => {
   const comment = (text, postId) => {
     if (!text) return;
 
-    fetch("/comment", {
+    return fetch("/comment", {
       method: "put",
       headers: authHeaders,
       body: JSON.stringify({ text, postId }),
@@ -87,7 +88,7 @@ const Home = () => {
   return (
     <div className="home">
       {posts.map((post) => (
-        <div className="card home-card" key={post._id}>
+        <div className="card home-card post-container" key={post._id}>
           <h5>
             <Link
               className="cursor-pointer"
@@ -131,9 +132,10 @@ const Home = () => {
               chat_bubble_outline
             </i>
             <h6>{post.likes.length} likes</h6>
-
-            <h6>{post.title}</h6>
-            <p>{post.body}</p>
+            <h6>
+              <span style={{ fontWeight: "500" }}>{post.postedBy.name}</span>{" "}
+              {post.body}
+            </h6>
             {post.comments.map((comment) => (
               <h6 key={comment._id}>
                 <span style={{ fontWeight: "500" }}>
@@ -146,7 +148,7 @@ const Home = () => {
                     style={{ float: "right", color: "#000" }}
                     onClick={() => uncomment(post._id, comment._id)}
                   >
-                    delete
+                    close
                   </i>
                 )}
               </h6>
@@ -155,10 +157,21 @@ const Home = () => {
               className="input-field"
               onSubmit={(e) => {
                 e.preventDefault();
-                comment(e.target[0].value, post._id);
+                e.persist();
+                comment(e.target[0].value, post._id).then(
+                  (_) => (e.target[0].value = "")
+                );
               }}
             >
-              <input type="text" placeholder="Add a comment"></input>
+              <input type="text" placeholder="Add a comment" />
+              <button>
+                <i
+                  className="material-icons"
+                  style={{ marginLeft: "2rem", color: "#000" }}
+                >
+                  send
+                </i>
+              </button>
             </form>
           </div>
         </div>
