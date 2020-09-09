@@ -64,14 +64,14 @@ const SignIn = () => {
         ></input>
         <br />
         <br />
-        <button
-          className="btn waves-effect waves-light #42a5f5 blue darken-1"
-          onClick={() => PostData()}
-        >
+        <button className="btn" onClick={() => PostData()}>
           Login
         </button>
         <p>
-          <Link to="/signup">Don't have an account? Sign up now</Link>
+          <Link to="/signup">
+            Don't have an account?{" "}
+            <span style={{ color: "#42a5f5" }}>Sign up</span> now
+          </Link>
         </p>
       </div>
     </div>

@@ -182,8 +182,7 @@ const Post = (props) => {
             <input type="text" placeholder="Add a comment" />
             <button>
               <i
-                className="material-icons"
-                style={{ marginLeft: "2rem", color: "#000" }}
+                className="material-icons btn-send"
               >
                 send
               </i>

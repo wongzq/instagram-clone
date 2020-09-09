@@ -61,14 +61,14 @@ const SignUp = () => {
         ></input>
         <br />
         <br />
-        <button
-          className="btn waves-effect waves-light #42a5f5 blue darken-1"
-          onClick={() => PostData()}
-        >
+        <button className="btn " onClick={() => PostData()}>
           Sign up
         </button>
         <p>
-          <Link to="/signin">Already have an account? Sign in instead</Link>
+          <Link to="/signin">
+            Already have an account?{" "}
+            <span style={{ color: "#42a5f5" }}>Log in</span> instead
+          </Link>
         </p>
       </div>
     </div>

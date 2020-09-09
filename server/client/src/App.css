@@ -45,6 +45,7 @@ input[type=password]:focus {
 }
 
 .gallery-item-container {
+  border-radius: 1rem;
   overflow: hidden;
   margin: calc(10%/6);
   height: 0px;
@@ -76,4 +77,20 @@ input[type=password]:focus {
 i,
 .cursor-pointer {
   cursor: pointer;
+}
+
+.btn,
+.btn:active,
+.btn:focus {
+  border-radius: 1rem;
+  background-color: white;
+  color: #42a5f5;
+  box-shadow: none;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.btn:hover {
+  color: white;
+  background-color: #42a5f5;
 }

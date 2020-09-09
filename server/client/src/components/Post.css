@@ -1,14 +1,25 @@
 .post-container {
   border-radius: 1rem !important;
+  padding: 1rem;
 }
 
 .post-container h5 {
-  padding: 0.5rem 1rem;
+  padding: 0 1%;
+  padding-bottom: 1rem;
 }
 
 .post-comment-form {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between;
+}
+
+.post-comment-form input {
+  width: 90% !important;
+}
+
+.post-comment-form button {
+  width: 10% !important;
 }
 
 button {
@@ -27,7 +38,7 @@ button:active {
   overflow: hidden;
   padding-bottom: 100%;
   position: relative;
-  margin-bottom: 2rem;
+  border-radius: 1rem;
 }
 
 .img-content {
@@ -67,4 +78,9 @@ button:active {
 
 .dropdown-content #follow:hover {
   background: #eee;
+}
+
+.btn-send {
+  color: #000;
+  float: right;
 }
