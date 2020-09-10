@@ -6,7 +6,7 @@ import "./Profile.css";
 const Profile = () => {
   const [posts, setPosts] = React.useState([]);
   const { state } = React.useContext(UserContext);
-  const [viewPost, setViewPost] = React.useState({ view: false, post: {} });
+  const [viewPost, setViewPost] = React.useState({});
 
   React.useEffect(() => {
     fetch("/myPosts", {
@@ -20,9 +20,19 @@ const Profile = () => {
 
   return state ? (
     <div style={{ maxWidth: "800px", margin: "0px auto" }}>
-      <div className="view-post">
-        <Post post={{}} usesPostsContext={false} />
-      </div>
+      {Object.keys(viewPost).length === 0 ? null : (
+        <div className="view-post-overlay">
+          <div className="view-post">
+            <div
+              className="btn-close-container"
+              onClick={() => setViewPost({})}
+            >
+              <i className="material-icons">close</i>
+            </div>
+            <Post post={viewPost} usesPostsContext={false} />
+          </div>
+        </div>
+      )}
       <div
         style={{
           display: "flex",
@@ -60,7 +70,12 @@ const Profile = () => {
       <div className="gallery">
         {posts.map((post) => (
           <div className="gallery-item-container" key={post._id}>
-            <img alt="" className="gallery-item" src={post.imgUrl}></img>
+            <img
+              alt=""
+              className="gallery-item"
+              src={post.imgUrl}
+              onClick={() => setViewPost(post)}
+            ></img>
           </div>
         ))}
       </div>

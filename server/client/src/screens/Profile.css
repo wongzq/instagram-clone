@@ -27,3 +27,48 @@
   right: 0;
   left: 0;
 }
+
+.view-post-overlay {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #0007;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-post {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  z-index: 2;
+}
+
+.view-post>div {
+  width: auto;
+  height: 100%;
+  margin: auto;
+}
+
+.view-post .btn-close-container {
+  cursor: pointer;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  border-radius: 4rem;
+  background: #f33;
+  z-index: 3;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+}
+
+.view-post i {
+  color: white;
+  margin: auto;
+}

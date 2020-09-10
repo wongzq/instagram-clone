@@ -1,12 +1,14 @@
 import React from "react";
 import { UserContext } from "../App";
 import { useParams } from "react-router-dom";
+import Post from "../components/Post";
 import "./Profile.css";
 import "./UserProfile.css";
 
 const Profile = () => {
   const [userProfile, setUserProfile] = React.useState(null);
   const [followed, setFollowed] = React.useState(null);
+  const [viewPost, setViewPost] = React.useState({});
   const { dispatch } = React.useContext(UserContext);
   const { userId } = useParams();
 
@@ -64,6 +66,19 @@ const Profile = () => {
 
   return userProfile ? (
     <div style={{ maxWidth: "800px", margin: "0px auto" }}>
+      {Object.keys(viewPost).length === 0 ? null : (
+        <div className="view-post-overlay">
+          <div className="view-post">
+            <div
+              className="btn-close-container"
+              onClick={() => setViewPost({})}
+            >
+              <i className="material-icons">close</i>
+            </div>
+            <Post post={viewPost} usesPostsContext={false} />
+          </div>
+        </div>
+      )}
       <div
         style={{
           display: "flex",
@@ -114,7 +129,12 @@ const Profile = () => {
         {userProfile.posts &&
           userProfile.posts.map((post) => (
             <div className="gallery-item-container" key={post._id}>
-              <img alt="" className="gallery-item" src={post.imgUrl}></img>
+              <img
+                alt=""
+                className="gallery-item"
+                src={post.imgUrl}
+                onClick={() => setViewPost(post)}
+              ></img>
             </div>
           ))}
       </div>
