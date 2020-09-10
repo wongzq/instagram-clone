@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../App";
 import { PostsContext } from "../screens/Home";
 import "./Post.css";
@@ -13,13 +13,21 @@ const Post = (props) => {
   };
 
   // React Hooks
-  const { state } = React.useContext(UserContext);
+  const history = useHistory();
+  const { state, dispatch } = React.useContext(UserContext);
   const { postsDispatch } = React.useContext(PostsContext);
   const [post, setPost] = React.useState(props.post);
   const [showComment, setShowComment] = React.useState(false);
+  const [followed, setFollowed] = React.useState(false);
   React.useEffect(() => {
+    // initialzie Materialize CSS
     M.AutoInit();
   }, []);
+  React.useEffect(() => {
+    // get followed
+    const me = JSON.parse(localStorage.getItem("user"));
+    setFollowed(me.following.includes(post.postedBy._id));
+  }, [post.postedBy._id]);
 
   // methods
   const toggleLikePost = (id, liked) => {
@@ -74,6 +82,27 @@ const Post = (props) => {
       .then((data) => postsDispatch({ type: "DELETE", payload: data }));
   };
 
+  const toggleFollowUser = () => {
+    fetch(followed ? "/unfollow" : "/follow", {
+      method: "put",
+      headers: authHeaders,
+      body: JSON.stringify({ followeeId: post.postedBy._id }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: "UPDATE",
+          payload: { followers: data.followers, following: data.following },
+        });
+        localStorage.setItem("user", JSON.stringify(data));
+        setFollowed((prev) => !prev);
+      });
+  };
+
+  const viewProfile = () => {
+    history.push(`/user/${post.postedBy._id}`);
+  };
+
   return (
     <div className="card home-card post-container" key={post._id}>
       <h5>
@@ -119,8 +148,8 @@ const Post = (props) => {
             className="dropdown-content dropdown2"
           >
             <li>
-              <div id="follow" onClick={() => {}}>
-                <span>Follow</span>
+              <div id="follow" onClick={() => toggleFollowUser()}>
+                <span>{followed ? "Unfollow" : "Follow"}</span>
               </div>
             </li>
           </ul>
