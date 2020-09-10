@@ -100,7 +100,7 @@ const Post = (props) => {
   };
 
   const viewProfile = () => {
-    history.push(`/user/${post.postedBy._id}`);
+    history.push(`/profile/${post.postedBy._id}`);
   };
 
   return (
@@ -150,6 +150,11 @@ const Post = (props) => {
             <li>
               <div id="follow" onClick={() => toggleFollowUser()}>
                 <span>{followed ? "Unfollow" : "Follow"}</span>
+              </div>
+            </li>
+            <li onClick={() => viewProfile()}>
+              <div id="view">
+                <span>View profile</span>
               </div>
             </li>
           </ul>

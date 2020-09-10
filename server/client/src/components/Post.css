@@ -76,7 +76,8 @@ button:active {
   background: #eee;
 }
 
-.dropdown-content #follow:hover {
+.dropdown-content #follow:hover,
+.dropdown-content #view:hover {
   background: #eee;
 }
 
