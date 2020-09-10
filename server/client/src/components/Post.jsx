@@ -5,7 +5,7 @@ import { PostsContext } from "../screens/Home";
 import "./Post.css";
 import M from "materialize-css";
 
-const Post = (props) => {
+const PostWithoutPostsContext = (props) => {
   // auth constant
   const authHeaders = {
     "Content-Type": "application/json",
@@ -15,7 +15,6 @@ const Post = (props) => {
   // React Hooks
   const history = useHistory();
   const { state, dispatch } = React.useContext(UserContext);
-  const { postsDispatch } = React.useContext(PostsContext);
   const [post, setPost] = React.useState(props.post);
   const [showComment, setShowComment] = React.useState(false);
   const [followed, setFollowed] = React.useState(false);
@@ -26,7 +25,7 @@ const Post = (props) => {
   React.useEffect(() => {
     // get followed
     const me = JSON.parse(localStorage.getItem("user"));
-    setFollowed(me.following.includes(post.postedBy._id));
+    setFollowed(me.following.includes());
   }, [post.postedBy._id]);
 
   // methods
@@ -79,7 +78,11 @@ const Post = (props) => {
       headers: authHeaders,
     })
       .then((res) => res.json())
-      .then((data) => postsDispatch({ type: "DELETE", payload: data }));
+      .then((data) =>
+        props.postsDispatch
+          ? props.postsDispatch({ type: "DELETE", payload: data })
+          : null
+      );
   };
 
   const toggleFollowUser = () => {
@@ -221,6 +224,26 @@ const Post = (props) => {
         ) : null}
       </div>
     </div>
+  );
+};
+const PostWithPostsContext = (props) => {
+  const { postsDispatch } = React.useContext(PostsContext);
+
+  return <PostWithoutPostsContext post={props.post} postsDispatch={postsDispatch} />;
+};
+
+const Post = (props) => {
+  return Object.keys(props.post).length === 0 ? (
+    // if no post
+    <div></div>
+  ) : props.usesPostsContext === undefined ||
+    props.usesPostsContext === null ||
+    !props.usesPostsContext ? (
+    // if isolated post
+    <PostWithoutPostsContext post={props.post} />
+  ) : (
+    // if post with home posts
+    <PostWithPostsContext post={props.post} />
   );
 };
 

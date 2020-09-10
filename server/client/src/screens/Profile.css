@@ -1,0 +1,29 @@
+.gallery {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  padding-bottom: 100px;
+}
+
+.gallery-item-container {
+  cursor: pointer;
+  border-radius: 1rem;
+  overflow: hidden;
+  margin: calc(10%/6);
+  height: 0px;
+  width: 30%;
+  padding-bottom: 30%;
+  position: relative;
+}
+
+.gallery-item {
+  width: 100%;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}

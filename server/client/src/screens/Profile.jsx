@@ -1,9 +1,12 @@
 import React from "react";
 import { UserContext } from "../App";
+import Post from "../components/Post";
+import "./Profile.css";
 
 const Profile = () => {
   const [posts, setPosts] = React.useState([]);
   const { state } = React.useContext(UserContext);
+  const [viewPost, setViewPost] = React.useState({ view: false, post: {} });
 
   React.useEffect(() => {
     fetch("/myPosts", {
@@ -17,6 +20,9 @@ const Profile = () => {
 
   return state ? (
     <div style={{ maxWidth: "800px", margin: "0px auto" }}>
+      <div className="view-post">
+        <Post post={{}} usesPostsContext={false} />
+      </div>
       <div
         style={{
           display: "flex",

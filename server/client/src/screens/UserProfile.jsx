@@ -1,6 +1,7 @@
 import React from "react";
 import { UserContext } from "../App";
 import { useParams } from "react-router-dom";
+import "./Profile.css";
 import "./UserProfile.css";
 
 const Profile = () => {
@@ -113,11 +114,7 @@ const Profile = () => {
         {userProfile.posts &&
           userProfile.posts.map((post) => (
             <div className="gallery-item-container" key={post._id}>
-              <img
-                alt=""
-                className="gallery-item"
-                src={post.imgUrl}
-              ></img>
+              <img alt="" className="gallery-item" src={post.imgUrl}></img>
             </div>
           ))}
       </div>
