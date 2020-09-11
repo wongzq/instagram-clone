@@ -44,8 +44,8 @@
 .view-post {
   position: absolute;
   width: 90%;
-  height: 90%;
   z-index: 2;
+  margin-bottom: 2rem;
 }
 
 .view-post>div {
