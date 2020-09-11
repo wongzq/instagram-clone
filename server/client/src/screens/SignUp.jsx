@@ -89,6 +89,7 @@ const SignUp = () => {
           display: "flex",
           justifyContent: "center",
           textAlign: "center",
+          color: "red",
         }}
       >
         <b>DO NOT use your actual credentials to sign up.</b>

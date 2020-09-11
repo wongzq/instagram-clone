@@ -92,6 +92,7 @@ const SignIn = () => {
           display: "flex",
           justifyContent: "center",
           textAlign: "center",
+          color: "red",
         }}
       >
         <b>DO NOT use your actual Instagram account to log in.</b>
@@ -104,7 +105,9 @@ const SignIn = () => {
           textAlign: "center",
         }}
       >
-        You can log in using, email:<b> abc@abc.com</b>, pass:<b>abcde</b>
+        <p>
+          You can log in using, email: <b> abc@abc.com</b>, pass: <b>abcde</b>
+        </p>
       </div>
     </div>
   );
