@@ -45,7 +45,6 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #0007;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,6 +53,7 @@
 }
 
 .view-post {
+  top: 3rem;
   position: absolute;
   width: 100%;
   z-index: 2;
