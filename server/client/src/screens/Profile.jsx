@@ -20,6 +20,7 @@ const Profile = () => {
 
     return state ? (
         <div style={{ maxWidth: "800px", margin: "0px auto" }}>
+            {/* Modal */}
             {Object.keys(viewPost).length === 0 ? null : (
                 <div className="view-post-container">
                     <div className="view-post-overlay"></div>
@@ -34,6 +35,8 @@ const Profile = () => {
                     </div>
                 </div>
             )}
+
+            {/* Page */}
             <div
                 style={{
                     display: "flex",
